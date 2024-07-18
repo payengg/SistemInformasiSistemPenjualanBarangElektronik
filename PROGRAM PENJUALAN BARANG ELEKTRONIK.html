@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Program Penjualan Barang Elektronik</title>
+    <style>
+      h2 {
+        text-align: center;
+      }
+      hr {
+        width: 600px;
+      }
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        width: 600px;
+        margin: auto;
+        padding: 20px;
+      }
+      .container table {
+        width: 100%;
+      }
+      .container td {
+        padding: 10px;
+        vertical-align: middle;
+      }
+      .container .buttons {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .container .buttons button {
+        padding: 5px 20px;
+        margin: 5px;
+      }
+      .checkbox-group {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>PROGRAM PENJUALAN BARANG ELEKTRONIK</h2>
+    <hr />
+    <div class="container">
+      <form id="salesForm">
+        <table>
+          <tr>
+            <td><label for="namaBarang">Nama Barang:</label></td>
+            <td>
+              <input
+                type="text"
+                id="namaBarang"
+                name="namaBarang"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="harga">Harga:</label></td>
+            <td>
+              <input
+                type="number"
+                id="harga"
+                name="harga"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="jumlah">Jumlah:</label></td>
+            <td>
+              <input
+                type="number"
+                id="jumlah"
+                name="jumlah"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="aksesori">Aksesoris:</label></td>
+            <td class="checkbox-group">
+              <label
+                ><input
+                  type="checkbox"
+                  id="usb"
+                  name="aksesori"
+                  value="50000"
+                />USB</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  id="memory"
+                  name="aksesori"
+                  value="120000"
+                />Memory</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  id="speaker"
+                  name="aksesori"
+                  value="40000"
+                />Speaker</label
+              >
+            </td>
+          </tr>
+          <tr>
+            <td><label for="total">Total:</label></td>
+            <td>
+              <input
+                type="text"
+                id="total"
+                name="total"
+                readonly
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="pajak">Pajak 10%:</label></td>
+            <td>
+              <input
+                type="text"
+                id="pajak"
+                name="pajak"
+                readonly
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="bayar">Bayar:</label></td>
+            <td>
+              <input
+                type="text"
+                id="bayar"
+                name="bayar"
+                readonly
+              />
+            </td>
+          </tr>
+        </table>
+        <div class="buttons">
+          <button
+            type="button"
+            onclick="hitung()"
+          >
+            Proses
+          </button>
+          <button type="reset">Reset</button>
+          <hr />
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function hitung() {
+        let harga = parseInt(document.getElementById('harga').value);
+        if (isNaN(harga)) {
+          harga = 0;
+        }
+
+        let jumlah = parseInt(document.getElementById('jumlah').value);
+        if (isNaN(jumlah)) {
+          jumlah = 0;
+        }
+
+        let usb = 0;
+        if (document.getElementById('usb').checked) {
+          usb = parseInt(document.getElementById('usb').value);
+          if (isNaN(usb)) {
+            usb = 0;
+          }
+        }
+
+        let memory = 0;
+        if (document.getElementById('memory').checked) {
+          memory = parseInt(document.getElementById('memory').value);
+          if (isNaN(memory)) {
+            memory = 0;
+          }
+        }
+
+        let speaker = 0;
+        if (document.getElementById('speaker').checked) {
+          speaker = parseInt(document.getElementById('speaker').value);
+          if (isNaN(speaker)) {
+            speaker = 0;
+          }
+        }
+
+        const totalAksesoris = usb + memory + speaker;
+        const totalHarga = harga * jumlah + totalAksesoris;
+        const pajak = totalHarga * 0.1;
+        const bayar = totalHarga + pajak;
+
+        document.getElementById('total').value = totalHarga;
+        document.getElementById('pajak').value = pajak;
+        document.getElementById('bayar').value = bayar;
+      }
+    </script>
+  </body>
+</html>
